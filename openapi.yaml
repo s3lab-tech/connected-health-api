@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  description: connected health api
+  title: API V1
+  version: v1
+  contact:
+    name: Masa Matsuo
+    url: 'https://github.com/...'
+    email: mmatsuo@s3lab.tech
+paths:
+  /api/v1/signup:
+    post:
+      operationId: api-v1-signup
+      description: sign up
+      summary: Create a login user
+      tags:
+        - Login/Logout
+      parameters: []
+      responses:
+        '200':
+          description: a user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  email:
+                    type: string
+                  nickname:
+                    type: string
+                  user_type:
+                    type: string
+                required:
+                  - uuid
+                  - email
+                  - nickname
+                  - user_type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login_user:
+                  $ref: '#/components/schemas/LoginUser'
+              required:
+                - email
+                - nickname
+                - password
+                - user_type
+  /api/v1/login:
+    post:
+      operationId: api-v1-login
+      description: login
+      summary: Login
+      tags:
+        - Login/Logout
+      parameters: []
+      responses:
+        '200':
+          description: a user logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  email:
+                    type: string
+                  nickname:
+                    type: string
+                  user_type:
+                    type: string
+                required:
+                  - uuid
+                  - email
+                  - nickname
+                  - user_type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login_user:
+                  $ref: '#/components/schemas/LoginUser'
+              required:
+                - email
+                - password
+  /api/v1/device_data:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Device Data
+        - Login/Logout
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    account_uuid:
+                      type: string
+                    account_name:
+                      type: string
+                    device_user_uuid:
+                      type: string
+                    device_user_name:
+                      type: string
+                    device_data_period:
+                      type: string
+                    device_data_name:
+                      type: string
+                    device_data_graph_key:
+                      type: string
+      operationId: get-api-v1-device_data
+      description: get device data
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: device_user_uuid
+          description: ''
+        - schema:
+            type: string
+          in: query
+          name: data_type
+        - schema:
+            type: string
+          in: query
+          name: period
+servers:
+  - url: 'http://{defaultHost}'
+    variables:
+      defaultHost:
+        default: localhost
+components:
+  schemas:
+    LoginUser:
+      type: object
+      properties:
+        email:
+          type: string
+        nickname:
+          type: string
+        password:
+          type: string
+        user_type:
+          type: string
+tags:
+  - name: Device Data
+  - name: Login/Logout

@@ -37,6 +37,25 @@ paths:
                   - email
                   - nickname
                   - user_type
+              examples:
+                member1:
+                  value:
+                    uuid: f7e4325b057248ccb799e21ddb6a2c80
+                    email: member1@example.com
+                    nickname: mem1
+                    user_type: memeber
+                account_manager1:
+                  value:
+                    uuid: 489a034a4dd94edd880a2744a0170a8a
+                    email: account_manager1@example.com
+                    nickname: accman1
+                    user_type: account_manager
+                system_admin1:
+                  value:
+                    uuid: 790b6fe87d7d4d86-99658994c771f4c6
+                    email: system_admin1@example.com
+                    nickname: sysad1
+                    user_type: system_admin
       requestBody:
         content:
           application/json:
@@ -50,6 +69,25 @@ paths:
                 - nickname
                 - password
                 - user_type
+            examples:
+              member1:
+                value:
+                  email: member1@example.com
+                  password: 12345678
+                  nickname: mem1
+                  user_type: memeber
+              account_manager1:
+                value:
+                  email: account_manager1@example.com
+                  password: 12345678
+                  nickname: accman1
+                  user_type: account_manager
+              system_admin1:
+                value:
+                  email: system_admin1@example.com
+                  password: 12345678
+                  nickname: sysad1
+                  user_type: system_admin
   /api/v1/login:
     post:
       operationId: api-v1-login
@@ -79,6 +117,25 @@ paths:
                   - email
                   - nickname
                   - user_type
+              examples:
+                member1:
+                  value:
+                    uuid: f7e4325b057248ccb799e21ddb6a2c80
+                    email: member1@example.com
+                    nickname: mem1
+                    user_type: memeber
+                account_manager1:
+                  value:
+                    uuid: 489a034a4dd94edd880a2744a0170a8a
+                    email: account_manager1@example.com
+                    nickname: accman1
+                    user_type: account_manager
+                system_admin1:
+                  value:
+                    uuid: 790b6fe87d7d4d86-99658994c771f4c6
+                    email: system_admin1@example.com
+                    nickname: sysad1
+                    user_type: system_admin
       requestBody:
         content:
           application/json:
@@ -90,6 +147,19 @@ paths:
               required:
                 - email
                 - password
+            examples:
+              member1:
+                value:
+                  email: member1@example.com
+                  password: 12345678
+              account_manager1:
+                value:
+                  email: account_manager1@example.com
+                  password: 12345678
+              system_admin1:
+                value:
+                  email: system_admin1@example.com
+                  password: 12345678
   /api/v1/device_data:
     get:
       summary: Your GET endpoint
@@ -110,16 +180,50 @@ paths:
                       type: string
                     account_name:
                       type: string
-                    device_user_uuid:
-                      type: string
-                    device_user_name:
-                      type: string
-                    device_data_period:
-                      type: string
-                    device_data_name:
-                      type: string
-                    device_data_graph_key:
-                      type: string
+                    data_list:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          device_user_uuid:
+                            type: string
+                          device_user_name:
+                            type: string
+                          device_data_type:
+                            type: string
+                          device_data_period:
+                            type: string
+                          device_data_list:
+                            type: array
+                            items:
+                              type: string
+              examples:
+                data_list1:
+                  value:
+                    account_uuid: 9c17262bcbbf4187a4ea2884ce79f28e
+                    account_name: account1
+                    data_list:
+                      - device_user_uuid: a3d51885995f4b6f9d548671310458fd
+                        device_user_name: dev user 1
+                        device_data_type: sleep
+                        device_data_period: 1day
+                        device_data_list:
+                          - 2020/08/05
+                          - 2020/08/06
+                      - device_user_uuid: f9910cceeaa749abab1bf4bddf013da3
+                        device_user_name: dev user 1
+                        device_data_type: steps
+                        device_data_period: 1day
+                        device_data_list:
+                          - 2020/08/05
+                          - 2020/08/06
+                      - device_user_uuid: 59ebb940-f101404bb7638b2c8763a861
+                        device_user_name: dev user 1
+                        device_data_type: heart
+                        device_data_period: 1day
+                        device_data_list:
+                          - 2020/08/05
+                          - 2020/08/06
       operationId: get-api-v1-device_data
       description: get device data
       parameters:
@@ -128,6 +232,11 @@ paths:
           in: query
           name: device_user_uuid
           description: ''
+          examples:
+            dev1:
+              value: dev user 1
+            dev2:
+              value: dev user 2
         - schema:
             type: string
           in: query
@@ -157,3 +266,4 @@ components:
 tags:
   - name: Device Data
   - name: Login/Logout
+

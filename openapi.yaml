@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.2
 info:
   description: connected health api
   title: API V1
@@ -65,29 +65,29 @@ paths:
                 login_user:
                   $ref: '#/components/schemas/LoginUser'
               required:
-                - email
-                - nickname
-                - password
-                - user_type
+                - login_user
             examples:
               member1:
                 value:
-                  email: member1@example.com
-                  password: 12345678
-                  nickname: mem1
-                  user_type: memeber
+                  login_user:
+                    email: member1@example.com
+                    password: 12345678
+                    nickname: mem1
+                    user_type: memeber
               account_manager1:
                 value:
-                  email: account_manager1@example.com
-                  password: 12345678
-                  nickname: accman1
-                  user_type: account_manager
+                  login_user:
+                    email: account_manager1@example.com
+                    password: 12345678
+                    nickname: accman1
+                    user_type: account_manager
               system_admin1:
                 value:
-                  email: system_admin1@example.com
-                  password: 12345678
-                  nickname: sysad1
-                  user_type: system_admin
+                  login_user:
+                    email: system_admin1@example.com
+                    password: 12345678
+                    nickname: sysad1
+                    user_type: system_admin
   /api/v1/login:
     post:
       operationId: api-v1-login
@@ -145,21 +145,23 @@ paths:
                 login_user:
                   $ref: '#/components/schemas/LoginUser'
               required:
-                - email
-                - password
+                - login_user
             examples:
               member1:
                 value:
-                  email: member1@example.com
-                  password: 12345678
+                  login_user:
+                    email: member1@example.com
+                    password: 12345678
               account_manager1:
                 value:
-                  email: account_manager1@example.com
-                  password: 12345678
+                  login_user:
+                    email: account_manager1@example.com
+                    password: 12345678
               system_admin1:
                 value:
-                  email: system_admin1@example.com
-                  password: 12345678
+                  login_user:
+                    email: system_admin1@example.com
+                    password: 12345678
   /api/v1/device_data:
     get:
       summary: Your GET endpoint
@@ -198,7 +200,7 @@ paths:
                             items:
                               type: string
               examples:
-                data_list1:
+                devuser1_1day_all:
                   value:
                     account_uuid: 9c17262bcbbf4187a4ea2884ce79f28e
                     account_name: account1
@@ -210,14 +212,14 @@ paths:
                         device_data_list:
                           - 2020/08/05
                           - 2020/08/06
-                      - device_user_uuid: f9910cceeaa749abab1bf4bddf013da3
+                      - device_user_uuid: a3d51885995f4b6f9d548671310458fd
                         device_user_name: dev user 1
                         device_data_type: steps
                         device_data_period: 1day
                         device_data_list:
                           - 2020/08/05
                           - 2020/08/06
-                      - device_user_uuid: 59ebb940-f101404bb7638b2c8763a861
+                      - device_user_uuid: a3d51885995f4b6f9d548671310458fd
                         device_user_name: dev user 1
                         device_data_type: heart
                         device_data_period: 1day
@@ -233,18 +235,26 @@ paths:
           name: device_user_uuid
           description: ''
           examples:
-            dev1:
-              value: dev user 1
-            dev2:
-              value: dev user 2
+            devuser1:
+              value: a3d51885995f4b6f9d548671310458fd
         - schema:
             type: string
           in: query
           name: data_type
+          description: ''
+          examples:
+            all:
+              value: all
+            sleep:
+              value: sleep
         - schema:
             type: string
           in: query
           name: period
+          description: ''
+          examples:
+            1day:
+              value: 1day
 servers:
   - url: 'http://{defaultHost}'
     variables:

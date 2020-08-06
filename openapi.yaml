@@ -247,6 +247,8 @@ paths:
                           - date: 2020/08/06
                             graph_key: /graph/account_uuid=9c17262bcbbf4187a4ea2884ce79f28e/year=2002/month=08/day=06/device_user_uuid=a3d51885995f4b6f9d548671310458fd/heart_1day.png
                             data_key: /data/account_uuid=9c17262bcbbf4187a4ea2884ce79f28e/year=2002/month=08/day=06/device_user_uuid=a3d51885995f4b6f9d548671310458fd/heart_1day.tsv
+        '401':
+          $ref: "#/components/responses/UnauthorizedError"
       operationId: get-api-v1-device_data
       description: get device data
       parameters:
@@ -294,7 +296,10 @@ components:
           type: string
         user_type:
           type: string
-          enum: [member, account_manager, system_admin]
+          enum:
+            - member
+            - account_manager
+            - system_admin
       required:
         - email
         - password
